@@ -16,6 +16,6 @@ class HelloController {
      * @Route("/hello/{name}", name="hello")
      */
     public function helloAction($name){
-        return new Response('<html><body>Hello '.$name.'! </body></html>');
+        return new Response('<html><body>Hello '.$name.'! de pruebas </body></html>');
     }
 }
