@@ -5,8 +5,15 @@
     <h2>Inicio</h2>
     <br/>
     
-    <a href="">
+    <a href="{{ url('formulario', {'tipo' : 'login'}) }}">
         Ingresar en la aplicaci&oacute;n
+    </a>
+    
+        <br/>
+        <br/>
+        
+    <a href="{{ url('formulario', {'tipo' : 'registro'}) }}">
+        Registro en la aplicaci&oacute;n
     </a>
     
 {% endblock %}
