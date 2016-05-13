@@ -5,3 +5,7 @@
 home:
     path:       /
     defaults:   { _controller: HomeBundle:Default:index }
+    
+formulario:
+    path:       /{tipo}
+    defaults:   { _controller: UserBundle:Formulario:index }
