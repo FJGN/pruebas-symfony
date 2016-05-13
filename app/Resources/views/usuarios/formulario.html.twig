@@ -4,10 +4,12 @@
     
     <h2>{{ tipo_formulario }}</h2>
     
-    {# Poner formulario de registro o de inicio de sesion #}
+    {# Poner formulario de registro o de inicio de sesion #}    
+    {% block formulario %}
     
+    {% endblock %}
     
-    
+    <p/>
     <a href="{{ url('home') }}">
         Volver
     </a>
