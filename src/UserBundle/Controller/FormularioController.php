@@ -31,14 +31,14 @@ class FormularioController extends Controller {
     
     public function loginAction(){
         return $this->render(
-                'usuarios/formulario.html.twig',
+                'usuarios/login.html.twig',
                 array('tipo_formulario' => 'Login')
         );
     }
     
     public function registroAction(){
         return $this->render(
-                'usuarios/formulario.html.twig',
+                'usuarios/registro.html.twig',
                 array('tipo_formulario' => 'Registro')
         );
     }
