@@ -1,11 +1,11 @@
-#app:
- #   resource: "@AppBundle/Controller/"
-  #  type:     annotation
-
 home:
     path:       /
     defaults:   { _controller: HomeBundle:Default:index }
-    
+
+inicio:
+    path:       /inicio
+    defaults:   { _controller: UserBundle:Inicio:index }
+
 formulario:
     path:       /{tipo}
-    defaults:   { _controller: UserBundle:Formulario:index }
+    defaults:   { _controller: UserBundle:Formulario:form }
