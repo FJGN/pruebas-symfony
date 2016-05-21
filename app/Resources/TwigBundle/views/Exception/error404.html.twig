@@ -1,0 +1,16 @@
+{# app/Resources/TwigBundle/views/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Error{% endblock %}
+
+{% block body %}
+    <h1>P&aacute;gina no encontrada</h1>
+
+    La p&aacute;gina solicitada no se encuentra disponible.
+    
+    <br/>
+    <a href="{{ url('home') }}">
+        Volver
+    </a>
+    
+{% endblock %}
