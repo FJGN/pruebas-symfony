@@ -3,11 +3,14 @@
 {%block body %}
     
     <h2>{{ tipo_formulario }}</h2>
+                
+    {# No valida el formulario por defecto #}
+    {{ form(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
     
-    {# Poner formulario de registro o de inicio de sesion #}    
-    {% block formulario %}
-    
-    {% endblock %}
+    {{ form_start(formulario) }}
+            
+        {{ form_widget(formulario) }}
+    {{ form_end(formulario) }}
     
     <p/>
     <a href="{{ url('home') }}">
