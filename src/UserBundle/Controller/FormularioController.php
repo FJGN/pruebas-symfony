@@ -24,9 +24,6 @@ class FormularioController extends Controller {
         $lastUsername = $authenticationUtils->getLastUsername();
 
         
-        print_r($error);
-        print_r($authenticationUtils->getLastUsername());
-        
         $form = $this->createFormBuilder(new Usuario())
                 ->add('username', TextType::class, array('label' => 'Usuario'))
                 ->add('password', PasswordType::class, array('label' => 'Contraseña'))
@@ -73,11 +70,14 @@ class FormularioController extends Controller {
                         'data' => 'user'
                 ))->getForm();
         
-        $error = null;
-        $last_username = $form->get('username')->getData();
-
+        $error = null;        
+        
+        
+        $last_username = ($form->get('username')->getData() == null)?'':$form->get('username')->getData();
+        
         $form->handleRequest($request);
 
+        var_dump("joioo");
         if ($form->isValid() && $form->isSubmitted()) {
             $data = array(
                     'usuario' => $form->get('username')->getData(),
@@ -89,6 +89,7 @@ class FormularioController extends Controller {
             $signup_success = true;
 
 
+            var_dump("joioo");
             // ================================================
             // check user if exists
             // false: show errors
@@ -121,7 +122,7 @@ class FormularioController extends Controller {
                 'usuarios/formulario.html.twig', array(
                 'tipo_formulario' => 'Registrar',
                 'formulario' => $form->createView(),
-                'nombre_usuario' => $lastUsername,
+                'nombre_usuario' => $last_username,
                 'ruta_login' => '',
                 'errores' => $error
         ));

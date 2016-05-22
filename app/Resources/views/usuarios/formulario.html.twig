@@ -8,11 +8,11 @@
         </div>
         <div class="panel-body">
             {# No valida el formulario por defecto #}        
-            {#{{ form_start(formulario, {'attr': {'novalidate': 'novalidate', 'style': 'margin-top: 40px;' }}) }}            #}
-            {{ form_start(formulario) }}            
+            {{ form_start(formulario, {'attr': {'novalidate': 'novalidate', 'style': 'margin-top: 40px;' }}) }}            
+            {#{{ form_start(formulario) }}#}
 
-            {% if errores %}
-                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% if errores is not null %}
+                <div>{{ errores.messageKey|trans(errores.messageData, 'security') }}</div>
             {% endif %}
             
             <div id="form_user">
