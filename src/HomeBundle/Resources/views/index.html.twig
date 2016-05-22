@@ -2,22 +2,20 @@
 
 {% block body %}
 
-    <div >
-        <h2>Inicio</h2>
-        <br/>
+    <div class="panel panel-info">
+        <div class="panel-heading"> 
+            <h2>Inicio</h2>
+        </div>
 
-        <a href="{{ url('login') }}">
-            Ingresar en la aplicaci&oacute;n
-        </a>
-
-
-        <br/>
-        <br/>
-        
-        <a href="{{ url('registro') }}">
-            Registro en la aplicaci&oacute;n
-        </a>
-    
+        <div class="panel-body">
+            <form action="{{url('login')}}">
+                <button type="submit" class="btn btn-primary">Ingresar en la aplicaci&oacute;n</button>
+            </form>
+            <br/>
+            <form action="{{url('registro')}}">
+                <button type="submit" class="btn btn-success">Registro en la aplicaci&oacute;n</button>
+            </form>
+        </div>
     </div>
 
 {% endblock %}
