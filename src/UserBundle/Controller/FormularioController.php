@@ -15,7 +15,43 @@ class FormularioController extends Controller {
     public function loginAction(Request $request) {
         
         // Metodos y acciones para login
+        $authenticationUtils = $this->get('security.authentication_utils');
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
         
+        print_r($error);
+        print_r($authenticationUtils->getLastUsername());
+        
+        $form = $this->createFormBuilder(new Usuario())
+                ->add('username', TextType::class, array('label' => 'Usuario'))
+                ->add('password', PasswordType::class, array('label' => 'Contraseña'))
+                ->add('roles', ChoiceType::class, array('label' => 'Selecciona un rol',
+                        'choices' => array(
+                            'Usuario' => 'user',
+                            'Administrador' => 'admin',
+                            'Root' => 'root'
+                        ),
+                        'expanded' => true,
+                        'multiple' => false,
+                        'data' => 'user'
+                ))->getForm();
+        
+        
+        
+        
+        return $this->render(
+                'usuarios/formulario.html.twig', array(
+                'tipo_formulario' => 'Login',
+                'formulario' => $form->createView(),
+                'nombre_usuario' => $lastUsername,
+                'ruta_login' => $this->generateUrl('inicio'),
+                'errores' => $error
+        ));
         
     }
 
@@ -37,8 +73,8 @@ class FormularioController extends Controller {
                         'data' => 'user'
                 ))->getForm();
         
-        
-        
+        $error = null;
+        $last_username = $form->get('username')->getData();
 
         $form->handleRequest($request);
 
@@ -84,7 +120,10 @@ class FormularioController extends Controller {
         return $this->render(
                 'usuarios/formulario.html.twig', array(
                 'tipo_formulario' => 'Registrar',
-                'formulario' => $form->createView()
+                'formulario' => $form->createView(),
+                'nombre_usuario' => $lastUsername,
+                'ruta_login' => '',
+                'errores' => $error
         ));
         
     }
