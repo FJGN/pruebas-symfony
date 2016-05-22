@@ -1,20 +1,24 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
-
+    encoders:
+        UserBundle\Entity\Usuario:
+            algorithm: bcrypt
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        user_provider:
+            entity:
+                class: UserBundle:Usuario
+                property: username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
 
         main:
+            pattern: ^/
             anonymous: ~
+            form_login: login
+            check_path: login
             # activate different ways to authenticate
 
             # http_basic: ~
