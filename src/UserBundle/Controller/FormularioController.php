@@ -24,12 +24,9 @@ class FormularioController extends Controller {
         $lastUsername = $authenticationUtils->getLastUsername();
 
         
-//        print_r($error);
-//        print_r($authenticationUtils->getLastUsername());
-        
         $form = $this->createFormBuilder(new Usuario())
                 ->add('username', TextType::class, array('label' => 'Usuario'))
-                ->add('plainPassword', PasswordType::class, array('label' => 'Contraseña'))
+                ->add('password', PasswordType::class, array('label' => 'Contraseña'))
                 ->add('roles', ChoiceType::class, array('label' => 'Selecciona un rol',
                         'choices' => array(
                             'Usuario' => 'user',
@@ -61,7 +58,7 @@ class FormularioController extends Controller {
         $usuario = new Usuario();
         $form = $this->createFormBuilder($usuario)
                 ->add('username', TextType::class, array('label' => 'Usuario'))
-                ->add('plainPassword', PasswordType::class, array('label' => 'Contraseña'))
+                ->add('password', PasswordType::class, array('label' => 'Contraseña'))
                 ->add('roles', ChoiceType::class, array('label' => 'Selecciona un rol',
                         'choices' => array(
                             'Usuario' => 'user',
@@ -73,29 +70,33 @@ class FormularioController extends Controller {
                         'data' => 'user'
                 ))->getForm();
         
-        $error = null;
-        $lastUsername = $form->get('username')->getData();
-
+        $error = null;        
+        
+        
+        $last_username = ($form->get('username')->getData() == null)?'':$form->get('username')->getData();
+        
         $form->handleRequest($request);
 
+        var_dump("joioo");
         if ($form->isValid() && $form->isSubmitted()) {
-            $password = $this->get('security.password_encoder')->encodePasword($usuario, $usuario->getPlainPassword());
-            $usuario->setPassword($password);
-         
             $data = array(
                     'usuario' => $form->get('username')->getData(),
-                    'plainPassword' => $form->get('password')->getData(),
+                    'contra' => $form->get('password')->getData(),
                     'rol' => $form->get('roles')->getData()
             );
             
+            
+            $signup_success = true;
 
 
+            var_dump("joioo");
             // ================================================
             // check user if exists
             // false: show errors
             // true: save data and redirect to success page
             // ================================================
 
+            if ($signup_success) {
                 // Save data and change session to this user
 
                 $password = $this->get('security.password_encoder')
@@ -108,10 +109,11 @@ class FormularioController extends Controller {
                         
                 
                 return $this->render('usuarios/exito.html.twig', $data);
+            } else {
+                // Errors
+            }
             
             
-        }else{
-            /*****************AQUI CUANDO ESTÁ COGIDO EL NOMBRE DE USUARIO*************/
         }
         
         
@@ -120,7 +122,7 @@ class FormularioController extends Controller {
                 'usuarios/formulario.html.twig', array(
                 'tipo_formulario' => 'Registrar',
                 'formulario' => $form->createView(),
-                'nombre_usuario' => $lastUsername,
+                'nombre_usuario' => $last_username,
                 'ruta_login' => '',
                 'errores' => $error
         ));
