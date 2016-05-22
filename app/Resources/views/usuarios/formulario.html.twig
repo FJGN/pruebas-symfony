@@ -6,40 +6,47 @@
         <div class="panel-heading">
             <h2>{{ tipo_formulario }}</h2>
         </div>
-        <div class="panel-body">
-            {# No valida el formulario por defecto #}        
-            {#{{ form_start(formulario, {'attr': {'novalidate': 'novalidate', 'style': 'margin-top: 40px;' }}) }}            #}
-            {{ form_start(formulario) }}            
+        <div class="panel-body">            
+            {% if tipo_formulario == 'Registrar' %}
+                {{ form_start(formulario) }}            
+            {% else %}
+                {{ form_start(formulario, {'attr': {'action': url('login')}}) }}            
+            {% endif %}
+                
+            {% if errores %}
+                <div>{{ errores.messageKey|trans(errores.messageData, 'security') }}</div>
+            {% endif %}                                         
 
-    {#        {% if errores %}
-                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}#}
             
-            <div id="form_user">
-                {{ form_label(formulario.username, null, {'attr': {
-                        'class': 'input-group-addon', 
-                        'id': 'basic-addon1'
-                }}) }}
-                {{ form_widget(formulario.username, {'attr': {
-                            'class': 'form-control', 
-                            'placeholder': 'Nombre de usuario', 
-                            'aria-describedby': 'basic-addon1',
-                            'value': nombre_usuario
-                }}) }}
-            </div>
-
-            <div id="form_password" style="margin-top: 20px;">
-                {{ form_label(formulario.plainPassword, null, {'attr': {
-                        'class': 'input-group-addon', 
-                        'id': 'basic-addon1'
-                }}) }}        
-                {{ form_widget(formulario.plainPassword, {'attr': {
-                        'class': 'form-control', 
-                        'aria-describedby': 'basic-addon1'
-                }}) }}    
-            </div>
 
             {% if tipo_formulario == 'Registrar' %}   
+                <div id="form_user">     
+                
+                    {{ form_label(formulario.username, null, {'attr': {
+                            'class': 'input-group-addon', 
+                            'id': 'basic-addon1'
+                    }}) }}
+                    {{ form_widget(formulario.username, {'attr': {
+                                'class': 'form-control', 
+                                'placeholder': 'Nombre de usuario', 
+                                'aria-describedby': 'basic-addon1',
+                                'value': nombre_usuario                            
+                    }}) }}
+                
+                </div>
+                
+                <div id="form_password" style="margin-top: 20px;">
+                    {{ form_label(formulario.plainPassword, null, {'attr': {
+                            'class': 'input-group-addon', 
+                            'id': 'basic-addon1'
+                    }}) }}        
+                    {{ form_widget(formulario.plainPassword, {'attr': {
+                            'class': 'form-control', 
+                            'aria-describedby': 'basic-addon1'
+                    }}) }}    
+                </div>
+                
+                
                 <div style="margin-top: 20px;">                   
 
                     {{ form_label(formulario.roles) }}<br/>
@@ -49,7 +56,7 @@
                         {% for opcion in formulario.roles.vars.choices %}                        
                             <div class="radio">
                                 <label>
-                                    <input type="radio" required="required" name="form[roles]" value="{{ opcion.value }}">{{ opcion.label }}</label>
+                                    <input type="radio" required="required" name="user[roles]" value="{{ opcion.value }}">{{ opcion.label }}</label>
                             </div>
 
                         {% endfor %}
@@ -59,18 +66,59 @@
 
 
                 </div>
+                
+            {% else %}
+                
+                
+                <div id="form_user">     
+                
+                    {{ form_label(formulario.username, null, {'attr': {
+                            'class': 'input-group-addon', 
+                            'id': 'basic-addon1',
+                            'for': 'username'
+                    }}) }}
+                    {{ form_widget(formulario.username, {'attr': {
+                                'class': 'form-control', 
+                                'placeholder': 'Nombre de usuario', 
+                                'aria-describedby': 'basic-addon1',
+                                'value': nombre_usuario,
+                                'name': '_username',
+                                'id': 'username',
+                                'value': nombre_usuario
+                    }}) }}
+                
+                </div>
+                
+                <div id="form_password" style="margin-top: 20px;">
+                    {{ form_label(formulario.plainPassword, null, {'attr': {
+                            'class': 'input-group-addon', 
+                            'id': 'basic-addon1',
+                            'for': 'password'
+
+                    }}) }}        
+                    {{ form_widget(formulario.plainPassword, {'attr': {
+                            'class': 'form-control', 
+                            'aria-describedby': 'basic-addon1',
+                            'name': '_password',
+                            'id': 'password'
+                    }}) }}    
+                </div>
+                                  
+                
+                <input type="hidden" name="_target_path" value="{{ url('inicio') }}" />
             {% endif %}
 
 
 
             <div style="margin-top: 20px; ">
                 
+               
                 {{ 
                     include('elementos/boton.html.twig', {   
                         'tipo': 'submit', 
                         'estilo': '',
                         'color': 'verde', 
-                        'ruta': ruta_login,
+                        'ruta': '',
                         'texto': tipo_formulario 
                     }) 
                 }}
@@ -91,7 +139,7 @@
             {# Protection to CSRF attacks #}
             {{ form_widget(formulario._token) }}               
 
-            {{ form_end(formulario, {'render_rest': false}) }}        
+            {{ form_end(formulario, {'render_rest': false}) }}                   
         </div>
         
 

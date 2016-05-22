@@ -6,13 +6,18 @@ inicio:
     path:       /inicio
     defaults:   { _controller: UserBundle:Inicio:index }
 
+user:
+    path:       /user
+    defaults:   { _controller: UserBundle:Inicio:user}
+           
+
 admin:
     path:       /admin
-    defaults:   { _controller: UserBundle:Inicio:index }
+    defaults:   { _controller: UserBundle:Inicio:admin }
 
 root:
     path:       /root
-    defaults:   { _controller: UserBundle:Inicio:index }
+    defaults:   { _controller: UserBundle:Inicio:root }
 
 login:
     path:       /login
