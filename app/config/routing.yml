@@ -6,6 +6,18 @@ inicio:
     path:       /inicio
     defaults:   { _controller: UserBundle:Inicio:index }
 
-formulario:
-    path:       /{tipo}
-    defaults:   { _controller: UserBundle:Formulario:form }
+admin:
+    path:       /admin
+    defaults:   { _controller: UserBundle:Inicio:index }
+
+root:
+    path:       /root
+    defaults:   { _controller: UserBundle:Inicio:index }
+
+login:
+    path:       /login
+    defaults:   { _controller: UserBundle:Formulario:login }
+    
+registro:
+    path:       /registro
+    defaults:   { _controller: UserBundle:Formulario:registro }
