@@ -4,6 +4,7 @@ namespace UserBundle\Entity;
 
 use Symfony\Component\Validator\Constraint as Validacion;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,13 +51,27 @@ class Usuario implements UserInterface, \Serializable
     {
         return null;
     }
+    function setUsername($username) {
+        $this->username = $username;
+    }
 
-    public function getPassword()
+        public function getPassword()
     {
         return $this->password;
     }
+    function setId($id) {
+        $this->id = $id;
+    }
 
-    public function getRoles()
+    function setPassword($password) {
+        $this->password = $password;
+    }
+
+    function setRole($role) {
+        $this->role = $role;
+    }
+
+        public function getRoles()
     {
         return $this->role;
     }

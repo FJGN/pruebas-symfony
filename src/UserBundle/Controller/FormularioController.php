@@ -22,10 +22,11 @@ class FormularioController extends Controller {
     public function registroAction(Request $request) {
 
 
-        $form = $this->createFormBuilder(new Usuario())
-                ->add('user', TextType::class, array('label' => 'Usuario'))
+        $usuario = new Usuario();
+        $form = $this->createFormBuilder($usuario)
+                ->add('username', TextType::class, array('label' => 'Usuario'))
                 ->add('password', PasswordType::class, array('label' => 'Contraseña'))
-                ->add('rol', ChoiceType::class, array('label' => 'Selecciona un rol',
+                ->add('roles', ChoiceType::class, array('label' => 'Selecciona un rol',
                         'choices' => array(
                             'Usuario' => 'user',
                             'Administrador' => 'admin',
@@ -41,11 +42,11 @@ class FormularioController extends Controller {
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isValid() && $form->isSubmitted()) {
             $data = array(
-                    'usuario' => $form->get('user')->getData(),
+                    'usuario' => $form->get('username')->getData(),
                     'contra' => $form->get('password')->getData(),
-                    'rol' => $form->get('rol')->getData()
+                    'rol' => $form->get('roles')->getData()
             );
             
             
@@ -61,6 +62,15 @@ class FormularioController extends Controller {
             if ($signup_success) {
                 // Save data and change session to this user
 
+                $password = $this->get('security.password_encoder')
+                        ->encodePassword($usuario, $usuario->getPlainPassword());
+                $usuario->setPassword($password);
+                
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($usuario);
+                $em->flush();
+                        
+                
                 return $this->render('usuarios/exito.html.twig', $data);
             } else {
                 // Errors
