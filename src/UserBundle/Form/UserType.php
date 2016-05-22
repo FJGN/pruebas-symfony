@@ -21,7 +21,7 @@ class UserType extends AbstractType {
         
         $builder
                  ->add('username', TextType::class, array('label' => 'Usuario'))
-                ->add('password', PasswordType::class, array('label' => 'Contraseña'))
+                ->add('plainPassword', PasswordType::class, array('label' => 'Contraseña'))
                 ->add('roles', ChoiceType::class, array('label' => 'Selecciona un rol',
                         'choices' => array(
                             'Usuario' => 'user',

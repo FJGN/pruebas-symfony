@@ -22,7 +22,7 @@ class Usuario implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=25, unique=true)
      * @Validacion\NotBlank()
      */
     private $username;
@@ -40,7 +40,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=25)
      */
-    private $role;
+    private $roles;
 
     public function getUsername()
     {
@@ -67,13 +67,13 @@ class Usuario implements UserInterface, \Serializable
         $this->password = $password;
     }
 
-    function setRole($role) {
-        $this->role = $role;
+    function setRoles($roles) {
+        $this->roles = $roles;
     }
 
         public function getRoles()
     {
-        return $this->role;
+        return $this->roles;
     }
     
     function getPlainPassword() {

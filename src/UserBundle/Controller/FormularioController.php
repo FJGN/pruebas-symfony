@@ -24,12 +24,12 @@ class FormularioController extends Controller {
         $lastUsername = $authenticationUtils->getLastUsername();
 
         
-        print_r($error);
-        print_r($authenticationUtils->getLastUsername());
+//        print_r($error);
+//        print_r($authenticationUtils->getLastUsername());
         
         $form = $this->createFormBuilder(new Usuario())
                 ->add('username', TextType::class, array('label' => 'Usuario'))
-                ->add('password', PasswordType::class, array('label' => 'Contraseña'))
+                ->add('plainPassword', PasswordType::class, array('label' => 'Contraseña'))
                 ->add('roles', ChoiceType::class, array('label' => 'Selecciona un rol',
                         'choices' => array(
                             'Usuario' => 'user',
@@ -61,7 +61,7 @@ class FormularioController extends Controller {
         $usuario = new Usuario();
         $form = $this->createFormBuilder($usuario)
                 ->add('username', TextType::class, array('label' => 'Usuario'))
-                ->add('password', PasswordType::class, array('label' => 'Contraseña'))
+                ->add('plainPassword', PasswordType::class, array('label' => 'Contraseña'))
                 ->add('roles', ChoiceType::class, array('label' => 'Selecciona un rol',
                         'choices' => array(
                             'Usuario' => 'user',
@@ -79,14 +79,15 @@ class FormularioController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid() && $form->isSubmitted()) {
+            $password = $this->get('security.password_encoder')->encodePasword($usuario, $usuario->getPlainPassword());
+            $usuario->setPassword($password);
+         
             $data = array(
                     'usuario' => $form->get('username')->getData(),
-                    'contra' => $form->get('password')->getData(),
+                    'plainPassword' => $form->get('password')->getData(),
                     'rol' => $form->get('roles')->getData()
             );
             
-            
-            $signup_success = true;
 
 
             // ================================================
@@ -95,7 +96,6 @@ class FormularioController extends Controller {
             // true: save data and redirect to success page
             // ================================================
 
-            if ($signup_success) {
                 // Save data and change session to this user
 
                 $password = $this->get('security.password_encoder')
@@ -108,11 +108,10 @@ class FormularioController extends Controller {
                         
                 
                 return $this->render('usuarios/exito.html.twig', $data);
-            } else {
-                // Errors
-            }
             
             
+        }else{
+            /*****************AQUI CUANDO ESTÁ COGIDO EL NOMBRE DE USUARIO*************/
         }
         
         

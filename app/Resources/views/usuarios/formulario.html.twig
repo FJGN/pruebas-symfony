@@ -11,9 +11,9 @@
             {#{{ form_start(formulario, {'attr': {'novalidate': 'novalidate', 'style': 'margin-top: 40px;' }}) }}            #}
             {{ form_start(formulario) }}            
 
-            {% if errores %}
+    {#        {% if errores %}
                 <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+            {% endif %}#}
             
             <div id="form_user">
                 {{ form_label(formulario.username, null, {'attr': {
@@ -29,11 +29,11 @@
             </div>
 
             <div id="form_password" style="margin-top: 20px;">
-                {{ form_label(formulario.password, null, {'attr': {
+                {{ form_label(formulario.plainPassword, null, {'attr': {
                         'class': 'input-group-addon', 
                         'id': 'basic-addon1'
                 }}) }}        
-                {{ form_widget(formulario.password, {'attr': {
+                {{ form_widget(formulario.plainPassword, {'attr': {
                         'class': 'form-control', 
                         'aria-describedby': 'basic-addon1'
                 }}) }}    
@@ -49,7 +49,7 @@
                         {% for opcion in formulario.roles.vars.choices %}                        
                             <div class="radio">
                                 <label>
-                                    <input type="radio" required="required" name="form[rol]" value="{{ opcion.value }}">{{ opcion.label }}</label>
+                                    <input type="radio" required="required" name="form[roles]" value="{{ opcion.value }}">{{ opcion.label }}</label>
                             </div>
 
                         {% endfor %}
