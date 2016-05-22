@@ -1,0 +1,17 @@
+
+<button type="{{ tipo }}" 
+        style="{{ estilo }}" 
+        class="btn  {% if color == 'azul claro' %}
+                        btn-info
+                    {% elseif color == 'azul' %}
+                        btn-primary
+                    {% elseif color == 'rojo' %}
+                        btn-danger
+                    {% elseif color == 'verde' %}
+                        btn-success
+                    {% elseif color == 'amarillo' %}
+                        btn-warning
+                    {% endif %}" 
+        onclick="javascript:location.href = '{{ ruta }}'">        
+    {{ texto }}
+</button>

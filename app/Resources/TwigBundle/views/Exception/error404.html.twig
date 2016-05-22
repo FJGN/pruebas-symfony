@@ -4,13 +4,24 @@
 {% block title %}Error{% endblock %}
 
 {% block body %}
-    <h1>P&aacute;gina no encontrada</h1>
-
-    La p&aacute;gina solicitada no se encuentra disponible.
-    
-    <br/>
-    <a href="{{ url('home') }}">
-        Volver
-    </a>
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h1>P&aacute;gina no encontrada</h1>
+        </div>
+        <div class="panel-body">
+            La p&aacute;gina solicitada no se encuentra disponible.
+        </div>
+    </div>
+    <div align="center">
+        {{ 
+            include('elementos/boton.html.twig', {   
+                'tipo': 'button', 
+                'estilo': 'margin-top: 20px;',            
+                'color': 'azul', 
+                'ruta': url('home'), 
+                'texto': 'Volver' 
+            }) 
+        }}
+    </div>
     
 {% endblock %}

@@ -2,14 +2,12 @@
 
 {% block body %}
 
-    <h2>¡Bien hecho!</h2>
-    <br/>
-    
-    
-    Se ha registrado el usuario con &eacute;xito.<br/>    
-        
-    <a href="{{ url('home') }}">
-        Volver
-    </a>
+    <div align="center" class="alert alert-success" role="alert">
+        <h3><strong>¡Bien hecho!</strong></h3> <br/>
+        Se ha registrado el usuario <strong>{{ usuario }}</strong> con &eacute;xito.<br/><br/> 
+        <a class="alert-link" href="{{ url('home') }}">
+            Volver
+        </a>
+    </div>        
     
 {% endblock %}

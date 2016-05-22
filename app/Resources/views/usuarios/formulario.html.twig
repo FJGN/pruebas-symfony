@@ -1,20 +1,97 @@
 {%extends 'base.html.twig'%}
 
 {%block body %}
-    
-    <h2>{{ tipo_formulario }}</h2>
-                
-    {# No valida el formulario por defecto #}
-    {{ form(formulario, {'attr': {'novalidate': 'novalidate'}}) }}
-    
-    {{ form_start(formulario) }}
-            
-        {{ form_widget(formulario) }}
-    {{ form_end(formulario) }}
-    
-    <p/>
-    <a href="{{ url('home') }}">
-        Volver
-    </a>
-    
-{% endblock %}
+    <div class="panel panel-info">
+
+        <div class="panel-heading">
+            <h2>{{ tipo_formulario }}</h2>
+        </div>
+        <div class="panel-body">
+            {# No valida el formulario por defecto #}        
+            {{ form_start(formulario, {'attr': {'novalidate': 'novalidate', 'style': 'margin-top: 40px;' }}) }}            
+
+
+            <div id="form_user">
+                {{ form_label(formulario.user, null, {'attr': {
+                        'class': 'input-group-addon', 
+                        'id': 'basic-addon1'
+                }}) }}
+                {{ form_widget(formulario.user, {'attr': {
+                            'class': 'form-control', 
+                            'placeholder': 'Nombre de usuario', 
+                            'aria-describedby': 'basic-addon1'
+                }}) }}
+            </div>
+
+            <div id="form_password" style="margin-top: 20px;">
+                {{ form_label(formulario.password, null, {'attr': {
+                        'class': 'input-group-addon', 
+                        'id': 'basic-addon1'
+                }}) }}        
+                {{ form_widget(formulario.password, {'attr': {
+                        'class': 'form-control', 
+                        'aria-describedby': 'basic-addon1'
+                }}) }}    
+            </div>
+
+            {% if tipo_formulario == 'Registrar' %}   
+                <div style="margin-top: 20px;">
+
+                    {#{{ form_row(formulario.rol) }}#}
+
+
+                    {{ form_label(formulario.rol) }}<br/>
+
+                    <div id="form_rol">
+
+                        {% for opcion in formulario.rol.vars.choices %}                        
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" required="required" name="form[rol]" value="{{ opcion.value }}">{{ opcion.label }}</label>
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                </div>
+            {% endif %}
+
+
+
+            <div style="margin-top: 20px; ">
+                {{ 
+                    include('elementos/boton.html.twig', {   
+                        'tipo': 'submit', 
+                        'estilo': '',
+                        'color': 'verde', 
+                        'ruta': '',
+                        'texto': tipo_formulario 
+                    }) 
+                }}
+
+
+                {# Incluye el boton de volver al menu principal #}
+                {{ 
+                    include('elementos/boton.html.twig', {   
+                        'tipo': 'button', 
+                        'estilo': '',
+                        'color': 'azul', 
+                        'ruta': url('home'), 
+                        'texto': 'Volver' 
+                    }) 
+                }}
+            </div>
+
+            {# Protection to CSRF attacks #}
+            {{ form_widget(formulario._token) }}               
+
+            {{ form_end(formulario, {'render_rest': false}) }}        
+        </div>
+        
+
+    </div>
+
+{% endblock %}        
