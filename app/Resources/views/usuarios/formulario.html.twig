@@ -8,15 +8,15 @@
         </div>
         <div class="panel-body">
             {# No valida el formulario por defecto #}        
-            {{ form_start(formulario, {'attr': {'novalidate': 'novalidate', 'style': 'margin-top: 40px;' }}) }}            
-
+            {#{{ form_start(formulario, {'attr': {'novalidate': 'novalidate', 'style': 'margin-top: 40px;' }}) }}            #}
+            {{ form_start(formulario) }}            
 
             <div id="form_user">
-                {{ form_label(formulario.user, null, {'attr': {
+                {{ form_label(formulario.username, null, {'attr': {
                         'class': 'input-group-addon', 
                         'id': 'basic-addon1'
                 }}) }}
-                {{ form_widget(formulario.user, {'attr': {
+                {{ form_widget(formulario.username, {'attr': {
                             'class': 'form-control', 
                             'placeholder': 'Nombre de usuario', 
                             'aria-describedby': 'basic-addon1'
@@ -35,16 +35,13 @@
             </div>
 
             {% if tipo_formulario == 'Registrar' %}   
-                <div style="margin-top: 20px;">
+                <div style="margin-top: 20px;">                   
 
-                    {#{{ form_row(formulario.rol) }}#}
-
-
-                    {{ form_label(formulario.rol) }}<br/>
+                    {{ form_label(formulario.roles) }}<br/>
 
                     <div id="form_rol">
 
-                        {% for opcion in formulario.rol.vars.choices %}                        
+                        {% for opcion in formulario.roles.vars.choices %}                        
                             <div class="radio">
                                 <label>
                                     <input type="radio" required="required" name="form[rol]" value="{{ opcion.value }}">{{ opcion.label }}</label>
