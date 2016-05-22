@@ -12,7 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserType extends AbstractType {
@@ -20,8 +20,18 @@ class UserType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         
         $builder
-                ->add('username', TextType::class)
-                ->add('password', PasswordType::class);
+                 ->add('username', TextType::class, array('label' => 'Usuario'))
+                ->add('password', PasswordType::class, array('label' => 'Contraseña'))
+                ->add('roles', ChoiceType::class, array('label' => 'Selecciona un rol',
+                        'choices' => array(
+                            'Usuario' => 'user',
+                            'Administrador' => 'admin',
+                            'Root' => 'root'
+                        ),
+                        'expanded' => true,
+                        'multiple' => false,
+                        'data' => 'user'
+                ));
     }
     
     public function configureOptions(OptionsResolver $resolver) {
