@@ -2,7 +2,7 @@
 
 namespace UserBundle\Entity;
 
-use Symfony\Component\Validator\Constraint as Validacion;
+use Symfony\Component\Validator\Constraints as Validacion;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,7 +22,7 @@ class Usuario implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Validacion\NotBlank()
      */
     private $username;
