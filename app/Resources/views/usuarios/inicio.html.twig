@@ -2,12 +2,25 @@
 
 {%block body %}
     
-    <h2>Bienvenido</h2>
-                
     
-    
-    <a href="{{ url('home') }}">
-        Volver
-    </a>
-    
+    <div class="panel panel-info">
+        
+        <div class="panel-heading">
+            <h2>Bienvenido {{ usuario }}</h2>
+        </div>
+        <div class="panel-body"> 
+            Tienes el rol {{ rol }}
+        </div>
+        <div class="panel-footer">                                
+            {{ 
+                include('elementos/boton.html.twig', {   
+                    'tipo': 'button', 
+                    'estilo': '',
+                    'color': 'azul', 
+                    'ruta': url('home'), 
+                    'texto': 'Volver' 
+                }) 
+            }}            
+        </div>
+                            
 {% endblock %}
