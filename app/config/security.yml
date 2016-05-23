@@ -1,10 +1,18 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
+# http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+# activate different ways to authenticate
+
+# http_basic: ~
+# http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+
+# form_login: ~
+# http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+# disables authentication for assets and the profiler, adapt it according to your needs
 security:
     encoders:
         UserBundle\Entity\Usuario:
             algorithm: bcrypt
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         user_provider:
             entity:
@@ -12,25 +20,19 @@ security:
                 property: username
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
 
         main:
             pattern: ^/
             anonymous: ~
             form_login: 
-                login_path: login
-                check_path: login
-            # activate different ways to authenticate
-
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+                login_path: /login
+                check_path: /login
+                username_parameter: _username
+                password_parameter: _password
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/user, roles: user }
-        - { path: ^/admin, roles: admin }
-        - { path: ^/root, roles: root}
+        - { path: ^/user, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/root, roles: ROLE_ROOT}
         
