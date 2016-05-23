@@ -40,7 +40,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=25)
      */
-    private $roles;
+    private $roles = array();
 
     public function getUsername()
     {

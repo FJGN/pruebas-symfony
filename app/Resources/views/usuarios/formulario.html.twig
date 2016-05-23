@@ -14,7 +14,7 @@
             {% endif %}
                 
             {% if errores %}
-                <div>{{ errores.messageKey|trans(errores.messageData, 'security') }}</div>
+                <div><p style="color: red">{{ errores.messageKey|trans(errores.messageData, 'security') }}</p></div>
             {% endif %}                                         
 
             
@@ -75,7 +75,7 @@
                     {{ form_label(formulario.username, null, {'attr': {
                             'class': 'input-group-addon', 
                             'id': 'basic-addon1',
-                            'for': 'username'
+                            'for': '_username'
                     }}) }}
                     {{ form_widget(formulario.username, {'attr': {
                                 'class': 'form-control', 
@@ -83,7 +83,7 @@
                                 'aria-describedby': 'basic-addon1',
                                 'value': nombre_usuario,
                                 'name': '_username',
-                                'id': 'username',
+                                'id': '_username',
                                 'value': nombre_usuario
                     }}) }}
                 
@@ -93,14 +93,14 @@
                     {{ form_label(formulario.plainPassword, null, {'attr': {
                             'class': 'input-group-addon', 
                             'id': 'basic-addon1',
-                            'for': 'password'
+                            'for': '_password'
 
                     }}) }}        
                     {{ form_widget(formulario.plainPassword, {'attr': {
                             'class': 'form-control', 
                             'aria-describedby': 'basic-addon1',
                             'name': '_password',
-                            'id': 'password'
+                            'id': '_password'
                     }}) }}    
                 </div>
                                   
